@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BeeHunter Bari</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .page { display: none; }
+        .page.active { display: block !important; }
+        button, div { -webkit-tap-highlight-color: transparent; }
+        .nav-active { color: #EAB308 !important; font-weight: 800; }
+        .progress-fill { transition: width 0.5s ease-out; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900 pb-32">
+
+    <header class="bg-white p-5 sticky top-0 z-50 shadow-sm">
+        <div class="flex justify-between items-center mb-2">
+            <div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase leading-none">Punti Totali</p>
+                <button onclick="nav('history')" class="text-3xl font-black text-yellow-400 leading-none">150</button>
+            </div>
+            <div class="text-right">
+                <h1 class="text-xl font-black flex items-center justify-end uppercase italic">BeeHunter <span class="ml-1">🐝</span></h1>
+                <span class="bg-green-100 text-green-600 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase italic">Cacciatore Novizio</span>
+            </div>
+        </div>
+        <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-yellow-400" style="width: 45%;"></div>
+        </div>
+    </header>
+
+    <main id="home" class="page active p-5 space-y-6">
+        <h2 class="text-xl font-black italic uppercase">Sfide Vicine</h2>
+        <div onclick="openPop('barca')" class="bg-white p-6 rounded-[32px] shadow-sm flex justify-between items-center border border-gray-100">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-xl shadow-lg">🚢</div>
+                <div>
+                    <h3 class="font-black text-sm uppercase">Tour in Barca</h3>
+                    <p class="text-[10px] text-gray-400 uppercase font-bold">Badge: Capitano</p>
+                </div>
+            </div>
+            <div class="text-green-500 font-black text-sm">+50pt</div>
+        </div>
+
+        <h2 class="text-xl font-black italic uppercase mt-8">Locali Consigliati</h2>
+        <div onclick="openPartner('murat')" class="bg-white p-5 rounded-[28px] shadow-md border-l-4 border-yellow-400 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100&h=100&fit=crop" class="w-12 h-12 rounded-2xl object-cover">
+                <div>
+                    <h4 class="font-black text-sm uppercase">Ristorante Murat</h4>
+                    <p class="text-[10px] text-gray-400 italic font-bold">⭐ 4.8 (120 Recensioni)</p>
+                </div>
+            </div>
+            <span class="bg-yellow-100 text-yellow-600 font-black text-[9px] px-2 py-1 rounded-lg uppercase italic">Partner</span>
+        </div>
+    </main>
+
+    <main id="map" class="page p-5">
+        <h2 class="text-2xl font-black italic uppercase mb-4 text-center">Mappa</h2>
+        <div class="w-full h-96 bg-slate-200 rounded-[40px] border-8 border-white shadow-xl relative overflow-hidden">
+            <iframe class="w-full h-full grayscale opacity-70" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12015.688126042446!2d16.866164!3d41.125883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1347e8f192b6a95b%3A0x6b4822709f6d4992!2sBari%20Vecchia!5e0!3m2!1sit!2sit!4v1710500000000!5m2!1sit!2sit"></iframe>
+        </div>
+    </main>
+
+    <main id="camera" class="page p-5 text-center">
+        <h2 class="text-2xl font-black italic uppercase mb-4">Scanner QR</h2>
+        <div class="w-full h-80 bg-black rounded-[40px] border-4 border-white shadow-2xl overflow-hidden mb-6">
+            <video id="video" class="w-full h-full object-cover" autoplay playsinline></video>
+        </div>
+        <button onclick="startCamera()" id="camBtn" class="bg-yellow-400 text-white px-10 py-4 rounded-full font-black uppercase text-sm">Attiva Camera</button>
+    </main>
+
+    <main id="partners" class="page p-5 space-y-4">
+        <h2 class="text-2xl font-black italic uppercase text-yellow-500">I Nostri Partner 🤝</h2>
+        <div onclick="openPartner('murat')" class="bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex items-center space-x-4">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100&h=100&fit=crop" class="w-16 h-16 rounded-2xl object-cover">
+            <div class="flex-1">
+                <h4 class="font-black uppercase text-sm">Ristorante Murat</h4>
+                <p class="text-[10px] text-gray-400">Via Sparano, 10 • Cucina Tipica</p>
+            </div>
+            <div class="text-yellow-400 font-bold text-xs">⭐ 4.8</div>
+        </div>
+    </main>
+
+    <main id="shop" class="page p-5 space-y-4">
+        <h2 class="text-2xl font-black italic uppercase text-center text-yellow-500">Premi</h2>
+        <div class="bg-white p-5 rounded-3xl shadow-sm flex justify-between items-center border border-gray-50">
+            <span class="text-2xl">🍦</span>
+            <div class="flex-1 ml-4"><h4 class="font-black uppercase text-sm">Gelato Omaggio</h4><p class="text-[10px] text-blue-500 font-bold uppercase">80 pt</p></div>
+            <button class="bg-yellow-400 text-white px-4 py-2 rounded-xl text-xs font-black">USA</button>
+        </div>
+    </main>
+
+    <main id="partner-detail" class="page p-0">
+        <div class="relative h-64">
+            <img id="p-img" src="" class="w-full h-full object-cover">
+            <button onclick="nav('home')" class="absolute top-6 left-6 bg-white/20 backdrop-blur-md p-3 rounded-2xl text-white font-black text-xs">← INDIETRO</button>
+        </div>
+        <div class="bg-gray-50 -mt-8 rounded-t-[40px] p-6 relative">
+            <h2 id="p-name" class="text-2xl font-black uppercase italic mb-1">Nome Locale</h2>
+            <p id="p-address" class="text-gray-400 text-xs font-bold uppercase mb-4">Indirizzo...</p>
+            
+            <div class="flex space-x-2 mb-8">
+                <a id="p-call" href="#" class="flex-1 bg-yellow-400 text-white py-4 rounded-2xl text-center font-black text-[10px] uppercase">Chiama Ora 📞</a>
+                <a id="p-map" href="#" target="_blank" class="flex-1 bg-slate-900 text-white py-4 rounded-2xl text-center font-black text-[10px] uppercase">Percorso 📍</a>
+            </div>
+
+            <h3 class="font-black uppercase italic mb-4">Recensioni Hunter 🐝</h3>
+            <div id="p-reviews" class="space-y-4 mb-8">
+                <div class="bg-white p-4 rounded-2xl shadow-sm">
+                    <p class="font-black text-[10px] text-yellow-500">MARCO_BA • ⭐ 5</p>
+                    <p class="text-xs text-gray-500 mt-1 italic">"Pasta incredibile, scontro BeeHunter applicato subito!"</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-[32px] shadow-lg border-2 border-yellow-100">
+                <p class="font-black uppercase text-xs mb-3">Lascia la tua recensione</p>
+                <textarea id="rev-text" class="w-full bg-gray-50 rounded-xl p-3 text-xs border-none focus:ring-2 focus:ring-yellow-400 mb-3" placeholder="Com'è stata l'esperienza?"></textarea>
+                <button onclick="addReview()" class="w-full bg-yellow-400 text-white py-3 rounded-xl font-black text-[10px] uppercase">Invia Recensione</button>
+            </div>
+        </div>
+    </main>
+
+    <nav class="fixed bottom-0 w-full bg-white border-t p-3 flex justify-around items-center z-50 shadow-2xl">
+        <button onclick="nav('home')" id="n-home" class="nav-active flex flex-col items-center"><span class="text-xl">🏠</span><span class="text-[8px] font-black uppercase mt-1">Home</span></button>
+        <button onclick="nav('map')" id="n-map" class="text-gray-300 flex flex-col items-center"><span class="text-xl">📍</span><span class="text-[8px] font-black uppercase mt-1">Mappa</span></button>
+        <button onclick="nav('camera')" class="bg-yellow-400 p-4 rounded-full -mt-12 text-white shadow-xl"><span class="text-xl">📸</span></button>
+        <button onclick="nav('partners')" id="n-partners" class="text-gray-300 flex flex-col items-center"><span class="text-xl">🤝</span><span class="text-[8px] font-black uppercase mt-1">Partner</span></button>
+        <button onclick="nav('shop')" id="n-shop" class="text-gray-300 flex flex-col items-center"><span class="text-xl">🎁</span><span class="text-[8px] font-black uppercase mt-1">Premi</span></button>
+    </nav>
+
+    <script>
+        function nav(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('nav-active', 'text-yellow-500'));
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.add('text-gray-300'));
+            const activeBtn = document.getElementById('n-' + id);
+            if(activeBtn) { activeBtn.classList.add('nav-active'); activeBtn.classList.remove('text-gray-300'); }
+            if(id !== 'camera') stopCamera();
+            window.scrollTo(0,0);
+        }
+
+        function openPartner(slug) {
+            const data = {
+                'murat': {
+                    n: 'Ristorante Murat',
+                    a: 'Via Sparano, 10, Bari',
+                    img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800',
+                    tel: 'tel:+390801234567',
+                    map: 'https://www.google.com/maps/dir/?api=1&destination=Ristorante+Murat+Bari'
+                }
+            }[slug];
+            
+            document.getElementById('p-name').innerText = data.n;
+            document.getElementById('p-address').innerText = data.a;
+            document.getElementById('p-img').src = data.img;
+            document.getElementById('p-call').href = data.tel;
+            document.getElementById('p-map').href = data.map;
+            nav('partner-detail');
+        }
+
+        function addReview() {
+            const txt = document.getElementById('rev-text').value;
+            if(!txt) return;
+            const div = document.createElement('div');
+            div.className = "bg-white p-4 rounded-2xl shadow-sm border-l-4 border-yellow-400";
+            div.innerHTML = `<p class="font-black text-[10px] text-yellow-500">TU (HUNTER) • ⭐ 5</p><p class="text-xs text-gray-500 mt-1 italic">"${txt}"</p>`;
+            document.getElementById('p-reviews').prepend(div);
+            document.getElementById('rev-text').value = "";
+            alert("Recensione inviata! Grazie Hunter.");
+        }
+
+        let stream = null;
+        async function startCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                document.getElementById('video').srcObject = stream;
+            } catch (err) { alert("Attiva i permessi fotocamera!"); }
+        }
+
+        function stopCamera() {
+            if(stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+        }
+    </script>
+</body>
+</html>
