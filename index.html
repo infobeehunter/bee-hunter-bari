@@ -12,15 +12,14 @@
     <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
     
     <div id="side-menu" class="fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-2xl p-6">
-        <div class="flex justify-between items-center mb-10">
-            <h2 class="font-black italic text-xl uppercase">BeeHunter 🐝</h2>
-            <button onclick="toggleMenu()" class="text-2xl">✕</button>
-        </div>
-        <nav class="space-y-6 font-bold uppercase text-xs tracking-widest">
-            <div onclick="nav('partners'); toggleMenu()" class="cursor-pointer">🤝 Partner & Premi</div>
-            <div onclick="nav('pass-shop'); toggleMenu()" class="cursor-pointer">🎟️ Acquista Pass</div>
+        <h2 class="font-black italic text-xl mb-10 text-yellow-500 uppercase">BeeHunter 🐝</h2>
+        <nav class="space-y-6 font-bold uppercase text-[10px] tracking-widest">
+            <div onclick="nav('home'); toggleMenu()" class="cursor-pointer">🏠 Home</div>
+            <div onclick="nav('map'); toggleMenu()" class="cursor-pointer">📍 Obiettivi del giorno</div>
+            <div onclick="nav('partners'); toggleMenu()" class="cursor-pointer">🤝 Partner & Shop</div>
+            <div onclick="nav('pass-shop'); toggleMenu()" class="cursor-pointer">🎟️ Acquista Pass & Bici</div>
             <div onclick="nav('my-passes'); toggleMenu()" class="cursor-pointer">🎒 I Miei Pass</div>
-            <div onclick="nav('bus-page'); toggleMenu()" class="cursor-pointer">🚌 Bus & Percorsi</div>
+            <div onclick="nav('bus-page'); toggleMenu()" class="cursor-pointer">🚌 Pullman & Treni</div>
             <div onclick="nav('info'); toggleMenu()" class="cursor-pointer">🆘 Info Point</div>
         </nav>
     </div>
@@ -33,37 +32,20 @@
         </div>
     </header>
 
-    <main id="home" class="page active p-5">
-        <div class="bg-yellow-400 p-6 rounded-[40px] text-white shadow-lg">
-            <h2 class="text-2xl font-black italic uppercase">Bari Hunter</h2>
-            <p class="text-xs font-bold opacity-80">Esplora la città e accumula punti.</p>
-        </div>
-    </main>
-
-    <main id="map" class="page p-5">
-        <h2 class="text-xl font-black italic uppercase mb-4">Mappa Sfide</h2>
-        <div class="w-full h-80 bg-gray-200 rounded-[40px] flex items-center justify-center font-bold text-gray-400">MAPPA GPS 📡</div>
-    </main>
-
+    <main id="home" class="page active p-5"></main>
+    <main id="map" class="page p-5"></main>
     <main id="camera" class="page p-5 text-center">
-        <h2 class="text-xl font-black italic uppercase mb-4">Scanner & Foto</h2>
         <video id="video" class="w-full h-80 bg-black rounded-[40px] object-cover" autoplay playsinline></video>
         <div class="flex flex-col space-y-3 mt-6">
-            <button onclick="startCamera()" class="bg-yellow-400 text-white py-4 rounded-2xl font-black text-xs uppercase">Attiva Camera</button>
-            <button onclick="takePhoto()" class="bg-slate-900 text-white py-4 rounded-2xl font-black text-xs uppercase">Scatta per Diario</button>
+            <button onclick="startCamera()" class="bg-yellow-400 text-white py-4 rounded-2xl font-black text-xs uppercase">Attiva Fotocamera</button>
+            <button onclick="takePhoto()" class="bg-slate-900 text-white py-4 rounded-2xl font-black text-xs uppercase">Scatta & Guadagna Punti</button>
         </div>
     </main>
-
-    <main id="profile" class="page p-5">
-        <h2 class="text-xl font-black italic uppercase mb-4">Mio Diario</h2>
-        <div id="diary-grid" class="grid grid-cols-2 gap-2"></div>
-    </main>
-
+    <main id="profile" class="page p-5"></main>
     <main id="partners" class="page p-5"></main>
     <main id="pass-shop" class="page p-5"></main>
     <main id="my-passes" class="page p-5"></main>
     <main id="bus-page" class="page p-5"></main>
-    <main id="info" class="page p-5"></main>
 
     <nav class="fixed bottom-0 w-full bg-white border-t p-4 flex justify-around items-center z-40">
         <button onclick="nav('home')" id="n-home" class="nav-active flex flex-col items-center">
